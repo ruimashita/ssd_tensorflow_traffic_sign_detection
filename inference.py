@@ -129,6 +129,9 @@ def generate_output(input_files, mode):
 		print('Restoring previously trained model at %s' % MODEL_SAVE_PATH)
 		saver.restore(sess, MODEL_SAVE_PATH)
 
+		output_dir = "outputs"
+		pb_name = save_pb_file(sess, output_dir, output_node_names=["y_pred_conf", "y_pred_loc"])
+
 		if mode == 'image':
 			for image_file in input_files:
 				print('Running inference on %s' % image_file)
@@ -163,6 +166,16 @@ def generate_output(input_files, mode):
 		else:
 			raise ValueError('Invalid mode: %s' % mode)
 
+
+def save_pb_file(sess, output_dir, output_node_names=["output"], pb_name="minimal_graph_with_shape.pb"):
+    minimal_graph = tf.graph_util.convert_variables_to_constants(
+        sess,
+        sess.graph.as_graph_def(add_shapes=True),
+        output_node_names,
+    )
+    tf.train.write_graph(minimal_graph, output_dir, pb_name, as_text=False)
+
+    return pb_name
 
 if __name__ == '__main__':
 	# Configure command line options

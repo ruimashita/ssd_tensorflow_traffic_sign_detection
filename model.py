@@ -156,8 +156,8 @@ def AlexNet():
 		preds_loc.append(net_loc)
 
 	# Concatenate all preds together into 1 vector, for both classification and localization predictions
-	final_pred_conf = tf.concat(1, preds_conf)
-	final_pred_loc = tf.concat(1, preds_loc)
+	final_pred_conf = tf.concat(1, preds_conf, name="y_pred_conf")
+	final_pred_loc = tf.concat(1, preds_loc, name="y_pred_loc")
 
 	# Return a dictionary of {tensor_name: tensor_reference}
 	ret_dict = {
