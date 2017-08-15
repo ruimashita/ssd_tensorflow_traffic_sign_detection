@@ -84,8 +84,8 @@ def ModelHelper(y_pred_conf, y_pred_loc):
 	# Class probabilities and predictions
 	probs_all = tf.nn.softmax(logits)
 	probs, preds_conf = tf.nn.top_k(probs_all)  # take top-1 probability, and the index is the predicted class
-	probs = tf.reshape(probs, [-1, num_total_preds])
-	preds_conf = tf.reshape(preds_conf, [-1, num_total_preds])
+	probs = tf.reshape(probs, [-1, num_total_preds], name="probs")
+	preds_conf = tf.reshape(preds_conf, [-1, num_total_preds], name="preds_conf")
 
 	# Return a dictionary of {tensor_name: tensor_reference}
 	ret_dict = {

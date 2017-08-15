@@ -130,7 +130,7 @@ def generate_output(input_files, mode):
 		saver.restore(sess, MODEL_SAVE_PATH)
 
 		output_dir = "outputs"
-		pb_name = save_pb_file(sess, output_dir, output_node_names=["y_pred_conf", "y_pred_loc"], pb_name="is_training_false_graph_with_shape.pb")
+		pb_name = save_pb_file(sess, output_dir, output_node_names=["preds_conf", "y_pred_loc", "probs"], pb_name="correct_is_training_false_graph_with_shape.pb")
 
 		if mode == 'image':
 			for image_file in input_files:
@@ -145,7 +145,7 @@ def generate_output(input_files, mode):
 		elif mode == 'video':
 			for video_file in input_files:
 				print('Running inference on %s' % video_file)
-				video = VideoFileClip(video_file)
+				vidqqeo = VideoFileClip(video_file)
 				video = video.fl_image(lambda x: run_inference(x, model, sess, mode, sign_map))
 
 				head, tail = os.path.split(video_file)
