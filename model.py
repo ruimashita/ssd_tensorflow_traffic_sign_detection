@@ -118,7 +118,7 @@ def AlexNet():
 	# Use batch normalization for all convolution layers
 	# FIXME: Not sure why setting is_training is not working well
 	#with slim.arg_scope([slim.conv2d], normalizer_fn=slim.batch_norm, normalizer_params={'is_training': is_training}):
-	with slim.arg_scope([slim.conv2d], normalizer_fn=slim.batch_norm, normalizer_params={'is_training': True},\
+	with slim.arg_scope([slim.conv2d], normalizer_fn=slim.batch_norm, normalizer_params={'is_training': False},\
 			weights_regularizer=slim.l2_regularizer(scale=REG_SCALE)):
 		net = slim.conv2d(x, 64, [11, 11], 4, padding='VALID', scope='conv1')
 		net = slim.max_pool2d(net, [3, 3], 2, scope='pool1')

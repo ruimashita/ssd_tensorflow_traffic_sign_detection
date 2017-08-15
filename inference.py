@@ -130,7 +130,7 @@ def generate_output(input_files, mode):
 		saver.restore(sess, MODEL_SAVE_PATH)
 
 		output_dir = "outputs"
-		pb_name = save_pb_file(sess, output_dir, output_node_names=["y_pred_conf", "y_pred_loc"])
+		pb_name = save_pb_file(sess, output_dir, output_node_names=["y_pred_conf", "y_pred_loc"], pb_name="is_training_false_graph_with_shape.pb")
 
 		if mode == 'image':
 			for image_file in input_files:
